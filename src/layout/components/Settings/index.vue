@@ -15,12 +15,12 @@
 
       <div class="drawer-item">
         <span>固定头部</span>
-        <el-switch v-model="fixedHeader" class="drawer-switch" />
+        <el-switch v-model="fixedHeader" disabled class="drawer-switch" />
       </div>
 
       <div class="drawer-item">
         <span>显示LOGO</span>
-        <el-switch v-model="sidebarLogo" class="drawer-switch" />
+        <el-switch v-model="sidebarLogo" disabled class="drawer-switch" />
       </div>
 
     </div>

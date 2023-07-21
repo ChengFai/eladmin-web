@@ -1,40 +1,31 @@
 <template>
   <div class="navbar">
-    <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
-
-    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+    <!-- <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
+    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" /> -->
+    <slot name="nav-menu" />
 
     <div class="right-menu">
       <template v-if="device!=='mobile'">
         <search id="header-search" class="right-menu-item" />
 
-        <el-tooltip content="项目文档" effect="dark" placement="bottom">
-          <Doc class="right-menu-item hover-effect" />
-        </el-tooltip>
-
         <el-tooltip content="全屏缩放" effect="dark" placement="bottom">
           <screenfull id="screenfull" class="right-menu-item hover-effect" />
         </el-tooltip>
-
-        <el-tooltip content="布局设置" effect="dark" placement="bottom">
-          <size-select id="size-select" class="right-menu-item hover-effect" />
-        </el-tooltip>
-
       </template>
 
-      <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
+      <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="hover">
         <div class="avatar-wrapper">
           <img :src="user.avatarName ? baseApi + '/avatar/' + user.avatarName : Avatar" class="user-avatar">
-          <i class="el-icon-caret-bottom" />
+          <i class="el-icon-caret-bottom" color="white" />
         </div>
         <el-dropdown-menu slot="dropdown">
-          <span style="display:block;" @click="show = true">
+          <span style="display:block;" @click="toggleSetting()">
             <el-dropdown-item>
               布局设置
             </el-dropdown-item>
           </span>
           <router-link to="/user/center">
-            <el-dropdown-item>
+            <el-dropdown-item divided>
               个人中心
             </el-dropdown-item>
           </router-link>
@@ -51,22 +42,19 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Breadcrumb from '@/components/Breadcrumb'
-import Hamburger from '@/components/Hamburger'
-import Doc from '@/components/Doc'
+
 import Screenfull from '@/components/Screenfull'
-import SizeSelect from '@/components/SizeSelect'
 import Search from '@/components/HeaderSearch'
 import Avatar from '@/assets/images/avatar.png'
+// import hamburger from '@/components/Hamburger'
+// import Breadcrumb from '@/components/Breadcrumb'
 
 export default {
   components: {
-    Breadcrumb,
-    Hamburger,
     Screenfull,
-    SizeSelect,
-    Search,
-    Doc
+    Search
+    // Breadcrumb,
+    // hamburger
   },
   data() {
     return {
@@ -106,6 +94,13 @@ export default {
         this.logout()
       })
     },
+    toggleSetting() {
+      console.log('toggleSetting')
+      this.$store.dispatch('settings/changeSetting', {
+        key: 'showSettings',
+        value: true
+      })
+    },
     logout() {
       this.$store.dispatch('LogOut').then(() => {
         location.reload()
@@ -116,11 +111,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+@import '@/assets/styles/variables.scss';
+
 .navbar {
   height: 50px;
   overflow: hidden;
   position: relative;
-  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  background: $menuBg;
+  color: #fff;
   box-shadow: 0 1px 4px rgba(0,21,41,.08);
 
   .hamburger-container {
@@ -181,9 +183,9 @@ export default {
 
         .user-avatar {
           cursor: pointer;
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
         }
 
         .el-icon-caret-bottom {
@@ -192,9 +194,18 @@ export default {
           right: -20px;
           top: 25px;
           font-size: 12px;
+          color: white;
         }
       }
     }
   }
+}
+
+.layout-setting-btn {
+  cursor: pointer;
+  font-size: 18px;
+  vertical-align: middle;
+  line-height: 50px;
+  border: 1px solid red;
 }
 </style>

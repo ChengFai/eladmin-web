@@ -1,3 +1,9 @@
+<style scoped>
+.menu-text-wrapper {
+  margin: 0 15px 0 5px;
+}
+</style>
+
 <script>
 export default {
   name: 'MenuItem',
@@ -21,7 +27,7 @@ export default {
     }
 
     if (title) {
-      vnodes.push(<span slot='title'>{(title)}</span>)
+      vnodes.push(<span slot='title' class='menu-text-wrapper'>{(title)}</span>)
     }
     return vnodes
   }

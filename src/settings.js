@@ -2,11 +2,11 @@ module.exports = {
   /**
    * @description 网站标题
    */
-  title: 'ELADMIN',
+  title: '数据管理平台',
   /**
    * @description 是否显示 tagsView
    */
-  tagsView: true,
+  tagsView: false,
   /**
    * @description 固定头部
    */
@@ -30,7 +30,7 @@ module.exports = {
   /**
    * @description 是否显示logo
    */
-  sidebarLogo: true,
+  sidebarLogo: false,
   /**
    * 是否显示设置的底部信息
    */
@@ -38,7 +38,7 @@ module.exports = {
   /**
    * 底部文字，支持html语法
    */
-  footerTxt: '© 2018-2022 Zheng Jie <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License 2.0</a>',
+  footerTxt: '© 2023  <a>北京市指南针科技发展股份有限公司</a>  版权所有',
   /**
    * 备案号
    */

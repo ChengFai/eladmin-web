@@ -1,20 +1,18 @@
 <template>
   <div :class="{'has-logo':showLogo}">
-    <logo v-if="showLogo" :collapse="isCollapse" />
-    <el-scrollbar wrap-class="scrollbar-wrapper">
-      <el-menu
-        :default-active="activeMenu"
-        :collapse="isCollapse"
-        :background-color="variables.menuBg"
-        :text-color="variables.menuText"
-        :active-text-color="variables.menuActiveText"
-        :collapse-transition="false"
-        unique-opened
-        mode="vertical"
-      >
-        <sidebar-item v-for="route in sidebarRouters" :key="route.path" :item="route" :base-path="route.path" />
-      </el-menu>
-    </el-scrollbar>
+    <!-- <logo v-if="showLogo" :collapse="isCollapse" /> -->
+    <logo v-if="false" :collapse="isCollapse" />
+    <el-menu
+      :default-active="activeMenu"
+      :background-color="variables.menuBg"
+      :text-color="variables.menuText"
+      :active-text-color="variables.menuActiveText"
+      :collapse-transition="false"
+      unique-opened
+      mode="horizontal"
+    >
+      <sidebar-item v-for="route in sidebarRouters" :key="route.path" :item="route" :base-path="route.path" />
+    </el-menu>
   </div>
 </template>
 
@@ -52,3 +50,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+ul.el-menu--horizontal {
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+}
+</style>

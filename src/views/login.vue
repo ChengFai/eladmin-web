@@ -1,8 +1,8 @@
 <template>
-  <div class="login" :style="'background-image:url('+ Background +');'">
+  <div class="login login-page-background">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" label-position="left" label-width="0px" class="login-form">
       <h3 class="title">
-        ELADMIN 后台管理系统
+        数据管理平台 后台管理系统
       </h3>
       <el-form-item prop="username">
         <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="账号">
@@ -35,8 +35,6 @@
     <!--  底部  -->
     <div v-if="$store.state.settings.showFooter" id="el-login-footer">
       <span v-html="$store.state.settings.footerTxt" />
-      <span v-if="$store.state.settings.caseNumber"> ⋅ </span>
-      <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank">{{ $store.state.settings.caseNumber }}</a>
     </div>
   </div>
 </template>
@@ -47,12 +45,12 @@ import Config from '@/settings'
 import { getCodeImg } from '@/api/login'
 import Cookies from 'js-cookie'
 import qs from 'qs'
-import Background from '@/assets/images/background.webp'
+// import Background from '@/assets/images/background.webp'
 export default {
   name: 'Login',
   data() {
     return {
-      Background: Background,
+      // Background: Background,
       codeUrl: '',
       cookiePass: '',
       loginForm: {
@@ -211,4 +209,10 @@ export default {
       vertical-align:middle
     }
   }
+
+.login-page-background {
+    background: #360033;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #0b8793, #360033);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #0b8793, #360033); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
 </style>

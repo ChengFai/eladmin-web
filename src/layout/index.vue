@@ -1,13 +1,20 @@
 <template>
-  <div :class="classObj" class="app-wrapper">
+  <div :class="classObj">
     <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-    <sidebar class="sidebar-container" />
     <div :class="{hasTagsView:needTagsView}" class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
-        <navbar />
+        <navbar>
+          <template #nav-menu>
+            <sidebar />
+          </template>
+        </navbar>
         <tags-view v-if="needTagsView" />
       </div>
-      <app-main />
+      <app-main>
+        <template #footer-main-content>
+          <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+        </template>
+      </app-main>
       <right-panel v-if="showSettings">
         <settings />
       </right-panel>
@@ -20,6 +27,7 @@
 <script>
 import RightPanel from '@/components/RightPanel'
 import { AppMain, Navbar, Settings, Sidebar, TagsView } from './components'
+import Breadcrumb from '@/components/Breadcrumb'
 import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
 import Theme from '@/components/ThemePicker'
@@ -33,6 +41,7 @@ export default {
     Settings,
     Sidebar,
     TagsView,
+    Breadcrumb,
     Theme
   },
   mixins: [ResizeMixin],
@@ -99,15 +108,14 @@ export default {
   .fixed-header {
     position: fixed;
     top: 0;
-    right: 0;
+    left: 0;
     z-index: 9;
-    width: calc(100% - #{$sideBarWidth});
+    width: 100vw;
     transition: width 0.28s;
     padding: 0;
   }
 
   .hideSidebar .fixed-header {
-    width: calc(100% - 54px)
   }
 
   .mobile .fixed-header {
